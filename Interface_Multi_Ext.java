@@ -1,27 +1,34 @@
 import java.util.Scanner;
+
 interface Shape_1 {
     void display();
 }
 
 interface Polygon_1 {
     void getArea(int length, int breadth);
+
+    // default method
+    default void getSidesInfo() {
+        System.out.println("I can provide information about the sides of a polygon.");
+    }
 }
 
 interface PerimeterPolygon_1 extends Shape_1, Polygon_1 {
     void getPerimeter(int length, int breadth);
 }
-
 class Rectangle_1 implements PerimeterPolygon_1 {
     public void getArea(int length, int breadth) {
         System.out.println("The area of the rectangle is " + (length * breadth));
     }
-
     public void display() {
         System.out.println("This is a Rectangle.");
     }
-
     public void getPerimeter(int length, int breadth) {
         System.out.println("The perimeter of the rectangle is " + (2 * (length + breadth)));
+    }
+    // overriding the default method
+    public void getSidesInfo() {
+        System.out.println("A Rectangle has 4 sides.");
     }
 }
 
@@ -56,6 +63,7 @@ class Interface_Multi_Ext {
             r.display();
             r.getArea(l, b);
             r.getPerimeter(l, b);
+            r.getSidesInfo();   // overridden method by triangle class 
 
         } else if (choice == 2) {
             System.out.println("Enter base and height:");
@@ -65,9 +73,12 @@ class Interface_Multi_Ext {
             t.display();
             t.getArea(base, h);
             t.getPerimeter(base, h);
+            t.getSidesInfo();   // uses default method
 
         } else {
             System.out.println("Invalid choice!");
         }
+
+        sc.close();
     }
 }
